@@ -43,5 +43,57 @@ def welcome():
     /api/v1.0/temp/start/end
     ''') 
 
+#Every time you create a new route, your code should be aligned to the left in order to avoid errors.
+
+@app.route("/api/v1.0/precipitation")
+
+#create the precipitation() function
+def precipitation():
+    #add the line of code that calculates the date one year ago from the most recent date in the database
+    prev_year = dt.date(2017, 8, 23) - dt.timedelta(days=365)
+    # get the date and precipitation for the previous year
+    precipitation = session.query(Measurement.date, Measurement.prcp).\
+      filter(Measurement.date >= prev_year).all()
+    precip = {date: prcp for date, prcp in precipitation}
+    #Jsonify() is a function that converts the dictionary to a JSON file
+    return jsonify(precip)
+
+@app.route("/api/v1.0/stations")
+def stations():
+    #create a query that will get all of the stations in database
+    results = session.query(Station.station).all()
+    #to unravel results into a one-dimensional array use the function np.ravel(), with results as parameter
+    stations = list(np.ravel(results))
+    return jsonify(stations=stations)
+
+@app.route("/api/v1.0/tobs")
+def temp_monthly():
+    #calculate the date one year ago from the last date in the database
+    prev_year = dt.date(2017, 8, 23) - dt.timedelta(days=365)
+    #query the primary station for all the temperature observations from the previous year
+    results = session.query(Measurement.tobs).\
+        filter(Measurement.station == 'USC00519281').\
+        filter(Measurement.date >= prev_year).all()
+    #unravel the results into a one-dimensional array and convert that array into a list
+    temps = list(np.ravel(results))
+    return jsonify(temps=temps)
+
+@app.route("/api/v1.0/temp/<start>")
+@app.route("/api/v1.0/temp/<start>/<end>")
+def stats(start=None, end=None):
+    #query to select the minimum, average, and maximum temperatures from database
+    sel = [func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)]
+    #query database using the list that just made.
+    if not end:
+        results = session.query(*sel).\
+            filter(Measurement.date >= start).all()
+        temps = list(np.ravel(results))
+        return jsonify(temps=temps)
+    #calculate the temperature minimum, average, and maximum with the start and end dates
+    results = session.query(*sel).\
+        filter(Measurement.date >= start).\
+        filter(Measurement.date <= end).all()
+    temps = list(np.ravel(results))
+    return jsonify(temps)
 
 
