@@ -26,14 +26,16 @@ Going thru our analysis results we can address the three key differences in weat
 - Biggest distinction was for minimum temperature June 64 and December 56. 
 
 ## Summary:
-Aloha! Our analysis looks great! Weather in Oahu suits perfect for surfing and ice cream shop. Our work provided in depth analysis that will be very helpful and useful if our friend will decide to open another shop in the future! But that’s no all, we can also parse precipitation levels to gather more weather data for June and December.
-
+Aloha! Our analysis looks great! Weather in Oahu suits perfect for surfing and ice cream shop. Our work provided in depth analysis that will be very helpful and useful if our friend will decide to open another shop in the future! But that’s not all, we can also parse precipitation levels to gather more weather data for June and December.
+```
 results = session.query(Measurement.date, Measurement.prcp).filter(extract('month', Measurement.date)==6).all()
 df = pd.DataFrame(results, columns=['date','precipitation'])
 df.set_index(df['date'], inplace=True)
 df.describe()
-
+```
+```
 results = session.query(Measurement.date, Measurement.prcp).filter(extract('month', Measurement.date)==12).all()
 df = pd.DataFrame(results, columns=['date','precipitation'])
 df.set_index(df['date'], inplace=True)
 df.describe()
+```
