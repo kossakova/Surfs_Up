@@ -2,7 +2,7 @@
 
 ## Overview of the statistical analysis:
 
-Aloha welcome to Beautiful Oahu, Hawaii. A friend of ours is planning to open a **Surf n’ Shake** shop serving surfboards and ice cream to locals. Before the business plan comes the analysis, and the main factor for this business- the weather. We determined if location, weather, temperature, precipitation levels etc. are worth investments and if the business is going to be successful. 
+Aloha! Welcome to Beautiful Oahu, Hawaii. A friend of ours is planning to open a **Surf n’ Shake** shop serving surfboards and ice cream to locals. Before the business plan comes the analysis, and the main factor for this business- the weather. We determined if location, weather, temperature, precipitation levels etc. are worth investments and if the business is going to be successful. 
 
 ## Results:
 
