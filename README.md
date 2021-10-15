@@ -27,12 +27,15 @@ Going through our analysis results we can address the three key differences in w
 
 ## Summary:
 ***Aloha!*** Our analysis looks great! Weather in Oahu perfectly suits our surfing & ice cream shop. Our work provided an depth analysis that will be very helpful and useful if our friend will decide to open another shop in the future! But that’s not all, we can also parse precipitation levels to gather more weather data for June and December.
+
+June precipitation
 ```
 results = session.query(Measurement.date, Measurement.prcp).filter(extract('month', Measurement.date)==6).all()
 df = pd.DataFrame(results, columns=['date','precipitation'])
 df.set_index(df['date'], inplace=True)
 df.describe()
 ```
+December precipitation
 ```
 results = session.query(Measurement.date, Measurement.prcp).filter(extract('month', Measurement.date)==12).all()
 df = pd.DataFrame(results, columns=['date','precipitation'])
